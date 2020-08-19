@@ -5,9 +5,8 @@ LDFLAGS =
 
 OBJS = cryptolib.o util.o
 HEADERS = cryptolib.h util.h
-EXES = cm sm
 
-all: $(OBJS) $(EXES)
+all: $(OBJS) crf
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
