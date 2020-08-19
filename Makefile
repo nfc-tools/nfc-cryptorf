@@ -6,17 +6,13 @@ LDFLAGS =
 OBJS = cryptolib.o util.o
 HEADERS = cryptolib.h util.h
 
-all: $(OBJS) crf
+all: nfc-cryptorf
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
 
-% : %.c $(OBJS)
-	$(LD) $(CFLAGS) $(LDFLAGS) -o $@ $< $(OBJS)
-
-crf: crf.c $(OBJS)
-	$(LD) $(CFLAGS) $(LDFLAGS) -o crf $< $(OBJS) -lnfc
-
+nfc-cryptorf: nfc-cryptorf.c $(OBJS)
+	$(LD) $(CFLAGS) $(LDFLAGS) -o $@ $< $(OBJS) -lnfc
 
 clean:
-	rm -f $(OBJS) $(EXES) crf
+	rm -f $(OBJS) nfc-cryptorf
