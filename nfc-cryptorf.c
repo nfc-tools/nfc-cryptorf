@@ -202,8 +202,12 @@ int main(int argc, char *argv[])
   nm.nmt = NMT_ISO14443B;
   nm.nbr = NBR_106;
   // Poll for a ISO14443-B cryptomemory tag
-  if (nfc_initiator_select_passive_target(pnd, nm, (uint8_t *)"\x00", 1, &nt) <= 0) {
-    nfc_perror(pnd, "nfc_initiator_select_passive_target");
+  int ret;
+  if ((ret = nfc_initiator_select_passive_target(pnd, nm, (uint8_t *)"\x00", 1, &nt)) <= 0) {
+    if (ret == 0)
+      printf("Cannot find an Atmel CryptoRF card\n");
+    else
+      nfc_perror(pnd, "nfc_initiator_select_passive_target");
     nfc_close(pnd);
     nfc_exit(context);
     exit(EXIT_FAILURE);
